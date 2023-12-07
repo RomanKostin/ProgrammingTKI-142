@@ -64,17 +64,19 @@ int main()
 
 double find_side(double side_a, double side_b, double angle_ab)
 {
-	return sqrt(pow(side_a, 2) + pow(side_b, 2) - (2 * side_a * side_b * cos((angle_ab * M_PI) / 180)));
+	double const math_alg = M_PI / 180;
+	return sqrt(pow(side_a, 2) + pow(side_b, 2) - (2 * side_a * side_b * cos(angle_ab * math_alg)));
 }
 
 double find_area(double side_a, double side_b, double angle_ab)
 {
-	return 0.5 * side_a * side_b * sin((angle_ab * M_PI) / 180);
+	double const math_alg = M_PI / 180;
+	return 0.5 * side_a * side_b * sin(angle_ab * math_alg);
 }
 
 double find_radius(double side_a, double side_b, double angle_ab)
 {
-	return (side_a * side_b * (sqrt(pow(side_a, 2) + pow(side_b, 2) - (2 * side_a * side_b * cos((angle_ab * M_PI) / 180))))) / (4 * 0.5 * side_a * side_b * sin((angle_ab * M_PI) / 180));
+	return (side_a * side_b * (sqrt(pow(side_a, 2) + pow(side_b, 2) - (2 * side_a * side_b * cos(angle_ab * math_alg))))) / (4 * 0.5 * side_a * side_b * sin(angle_ab * math_alg);
 }
 
 double input()
