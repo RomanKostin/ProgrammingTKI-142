@@ -7,7 +7,7 @@
 
 /**
 * @brief function used to get value from user
-* @return result - result of user's input
+* @return temp - result of user's input
 */
 double input();
 
@@ -46,7 +46,13 @@ double find_area(double side_a, double side_b, double angle_ab);
 */
 double find_radius(double side_a, double side_b, double angle_ab);
 
-/*
+/**
+* @brief function checks if angle is in range of 0 and 180 degrees
+* @param angle_ab - angle between two sides of a triangle
+*/
+void check_angle(double angle_ab);
+
+/**
 * @brief point of entry into the programm
 * @return 0 if programm works correctly
 */
@@ -57,8 +63,9 @@ int main()
 	side_a = input();
 	side_b = input();
 	angle_ab = input();
+	check_angle(angle_ab);
 	check_for_existance(side_a, side_b, angle_ab);
-	printf_s("%lf\n%lf\n%lf\n", find_side(side_a,side_b,angle_ab), find_area(side_a, side_b, angle_ab), find_radius(side_a, side_b, angle_ab));
+	printf_s("%lf\n%lf\n%lf\n", find_side(side_a, side_b, angle_ab), find_area(side_a, side_b, angle_ab), find_radius(side_a, side_b, angle_ab));
 	return 0;
 }
 
@@ -76,7 +83,8 @@ double find_area(double side_a, double side_b, double angle_ab)
 
 double find_radius(double side_a, double side_b, double angle_ab)
 {
-	return (side_a * side_b * (sqrt(pow(side_a, 2) + pow(side_b, 2) - (2 * side_a * side_b * cos(angle_ab * math_alg))))) / (4 * 0.5 * side_a * side_b * sin(angle_ab * math_alg);
+	double const math_alg = M_PI / 180;
+	return (side_a * side_b * (sqrt(pow(side_a, 2) + pow(side_b, 2) - (2 * side_a * side_b * cos(angle_ab * math_alg))))) / (4 * 0.5 * side_a * side_b * sin(angle_ab * math_alg));
 }
 
 double input()
@@ -98,6 +106,16 @@ void check_for_existance(double side_a, double side_b, double angle_ab)
 	if (side_a <= DBL_EPSILON || side_b <= DBL_EPSILON || abs(cos((angle_ab)*math_alg)) > DBL_EPSILON)
 	{
 		printf_s("Triangle doesn't exist");
+		abort();
+	}
+}
+
+void check_angle(double angle_ab)
+{
+	if (angle_ab < DBL_EPSILON || angle_ab - 180 > DBL_EPSILON)
+	{
+		errno = EIO;
+		perror("wrong angle!");
 		abort();
 	}
 }
