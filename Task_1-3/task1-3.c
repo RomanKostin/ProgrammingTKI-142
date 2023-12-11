@@ -25,6 +25,10 @@ void check_input(double Length, double Cross_sectional_area, double Resistivity)
 */
 double find_resistance(double Length, double Cross_sectional_area, double Resistivity);
 
+/**
+* @brief entry point into the program
+* @return 0 if program works correctly
+*/
 int main()
 {
 	double Length, Cross_sectional_area, Resistivity;
