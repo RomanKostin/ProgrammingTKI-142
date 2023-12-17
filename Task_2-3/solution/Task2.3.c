@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <float.h>
 #include <errno.h>
+#include <stdbool.h>
 
 /**
 * @brief function checks if there is any positive combination. If sum of any of them is more than DBL_EPSILON it prints positive, otherwise no positive
@@ -9,7 +10,7 @@
 * @param c user's input
 * @return 0 if False; 1 if True
 */
-int find_positive(double a, double b, double c);
+bool find_positive(double a, double b, double c);
 
 /**
 * @brief function used to get value from user
@@ -31,17 +32,17 @@ int main()
 	find_positive(a, b, c);
 	return 0;
 }
-int find_positive(double a, double b, double c)
+bool find_positive(double a, double b, double c)
 {
 	if (a + b > DBL_EPSILON || a + c > DBL_EPSILON || b + c > DBL_EPSILON)
 	{
 		printf_s("positive");
-		return 1; // True
+		return true;
 	}
 	else
 	{
 		printf_s("no positive");
-		return 0; // False
+		return false;
 	}
 }
 
