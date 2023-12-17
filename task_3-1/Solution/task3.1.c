@@ -37,19 +37,18 @@ void check_domain(double left, double right);
 */
 int main()
 {
-	double left, right, delta;
 	printf_s("input your domain: ");
-	left = input();
-	right = input();
+	double left = input();
+	double right = input();
 	check_domain(left, right);
 	printf_s("your domain is [%lf, %lf]\n", left, right);
-	delta = input();
+	double delta = input();
 	check_delta(delta);
-	for (left - delta; left - right < DBL_EPSILON; left += delta)
+	for (left; left - right < DBL_EPSILON; left += delta)
 	{
 		if (left - 1 > DBL_EPSILON)
 		{
-			printf_s("x = %lf ; y = undefined\n",left);
+			printf_s("x = %lf ; y = undefined\n", left);
 		}
 		else
 		{
@@ -74,9 +73,9 @@ double input()
 
 double solution(double left, double right)
 {
-		{
-			return sqrt(1 - left) - cos(sqrt(1 - left));
-		}
+	{
+		return sqrt(1 - left) - cos(sqrt(1 - left));
+	}
 }
 
 void check_domain(double left, double right)
