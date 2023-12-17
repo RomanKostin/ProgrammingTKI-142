@@ -48,6 +48,12 @@ double input()
 
 double function(double a, double x)
 {
+	if (a * x < -DBL_EPSILON)
+	{
+		errno = EIO;
+		perror("wrong input");
+		abort();
+	}
 	if (a * x - 1 < DBL_EPSILON)
 	{
 		return pow(a, x) - log10(a * x);
