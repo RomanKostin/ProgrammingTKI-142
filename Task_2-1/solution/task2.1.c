@@ -19,7 +19,8 @@ double input();
 */
 int main()
 {
-	double a, n, choice;
+	double a, n;
+	int choice;
 	printf_s("%s", "choose formula 1) N; 2) 2N; 3) 3N ");
 	choice = input();
 	printf_s("input A = ");
