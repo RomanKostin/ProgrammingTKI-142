@@ -24,11 +24,10 @@ double input();
 */
 int main()
 {
-	double a, x;
 	printf_s("Input a = ");
-	a = input();
+	double a = input();
 	printf_s("Input x = ");
-	x = input();
+	double x = input();
 	printf_s("the answer is %lf ", function(a, x));
 	return 0;
 }
