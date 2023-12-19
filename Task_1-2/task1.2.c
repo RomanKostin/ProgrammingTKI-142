@@ -103,7 +103,7 @@ double input()
 void check_for_existance(double side_a, double side_b, double angle_ab)
 {
 	double const math_alg = M_PI / 180;
-	if (side_a <= DBL_EPSILON || side_b <= DBL_EPSILON || abs(cos((angle_ab)*math_alg)) > DBL_EPSILON)
+	if (side_a <= DBL_EPSILON || side_b <= DBL_EPSILON)
 	{
 		printf_s("Triangle doesn't exist");
 		abort();
@@ -112,7 +112,7 @@ void check_for_existance(double side_a, double side_b, double angle_ab)
 
 void check_angle(double angle_ab)
 {
-	if (angle_ab < DBL_EPSILON || angle_ab - 180 > DBL_EPSILON)
+	if (angle_ab < DBL_EPSILON || angle_ab - 180 > -DBL_EPSILON)
 	{
 		errno = EIO;
 		perror("wrong angle!");
