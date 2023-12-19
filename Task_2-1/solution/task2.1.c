@@ -19,39 +19,39 @@ double input();
 */
 int main()
 {
-	double a, n;
-	int choice;
 	printf_s("%s", "choose formula 1) N; 2) 2N; 3) 3N ");
-	choice = input();
+	int choice = input();
 	printf_s("input A = ");
-	a = input();
+	double a = input();
 	printf_s("input N = ");
-	n = input();
+	double n = input();
 	enum formula equation = (enum formula)(choice);
 	switch (equation)
 	{
 	case N:
 	{
 		printf_s("the answer is %lf", a * n);
-		return 0;
+		break;
 	}
 	case DBL_N:
 	{
 		printf_s("the answer is %lf", a * n * 2);
-		return 0;
+		break;
 	}
 	case TPL_N:
 	{
 		printf_s("the answer is %lf", a * n * 3);
-		return 0;
+		break;
 	}
 	default:
 	{
 		errno = EIO;
 		perror("Input error!");
-		return 0;
+		return 1;
+		break;
 	}
 	}
+	return 0;
 }
 
 double input()
