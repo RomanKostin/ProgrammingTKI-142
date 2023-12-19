@@ -31,10 +31,9 @@ double find_resistance(double Length, double Cross_sectional_area, double Resist
 */
 int main()
 {
-	double Length, Cross_sectional_area, Resistivity;
 	printf_s("input length (meters), cross sectional area (milimeters^2) and resistivity of any metal (aluminium is 0.028) ");
-	Length = input();
-	Cross_sectional_area = input();
+	double Length = input(),
+	Cross_sectional_area = input(),
 	Resistivity = input();
 	check_input(Length, Cross_sectional_area, Resistivity);
 	printf_s("Resistance of the wire %lf", find_resistance(Length, Cross_sectional_area, Resistivity));
