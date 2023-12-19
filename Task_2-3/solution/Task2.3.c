@@ -24,26 +24,23 @@ double input();
 */
 int main()
 {
-	double a, b, c;
 	printf_s("input a, b ,c ");
-	a = input();
-	b = input();
-	c = input();
-	find_positive(a, b, c);
+	double a = input(),
+		b = input(),
+		c = input();
+	if (find_positive(a, b, c))
+	{
+		printf_s("positive");
+	}
+	else 
+	{
+		printf_s("negative");
+	}
 	return 0;
 }
 bool find_positive(double a, double b, double c)
 {
-	if (a + b > DBL_EPSILON || a + c > DBL_EPSILON || b + c > DBL_EPSILON)
-	{
-		printf_s("positive");
-		return true;
-	}
-	else
-	{
-		printf_s("no positive");
-		return false;
-	}
+	return (a + b > DBL_EPSILON || a + c > DBL_EPSILON || b + c > DBL_EPSILON);
 }
 
 double input()
