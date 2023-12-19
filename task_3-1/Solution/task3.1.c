@@ -44,9 +44,9 @@ int main()
 	printf_s("your domain is [%lf, %lf]\n", left, right);
 	double delta = input();
 	check_delta(delta);
-	for (left; left - right < DBL_EPSILON; left += delta)
+	for (left; left < right + delta; left += delta)
 	{
-		if (left - 1 > DBL_EPSILON)
+		if (left - 1 > DBL_EPSILON) // -DBL_EPSILON is less than 0, but i need it to include 0, so DBL_EPSILON
 		{
 			printf_s("x = %lf ; y = undefined\n", left);
 		}
