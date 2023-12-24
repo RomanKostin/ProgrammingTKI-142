@@ -57,13 +57,12 @@ void check_angle(double angle_ab);
 */
 int main()
 {
-	double side_a, side_b, angle_ab;
 	printf_s("%s", "input two sides of a triangle and an angle between them: ");
-	side_a = input();
-	side_b = input();
-	angle_ab = input();
-	check_angle(angle_ab);
+	double side_a = input(),
+		side_b = input(),
+		angle_ab = input();
 	check_for_existance(side_a, side_b);
+	check_angle(angle_ab);
 	printf_s("%lf\n%lf\n%lf\n", find_side(side_a, side_b, angle_ab), find_area(side_a, side_b, angle_ab), find_radius(side_a, side_b, angle_ab));
 	return 0;
 }
