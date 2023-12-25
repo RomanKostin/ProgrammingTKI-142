@@ -47,7 +47,7 @@ double input()
 
 double function(double a, double x)
 {
-	if (a * x < -DBL_EPSILON)
+	if (a * x < DBL_EPSILON)
 	{
 		errno = EIO;
 		perror("wrong input");
