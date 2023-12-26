@@ -156,9 +156,9 @@ int main()
     default:
         printf("Make a valid choice!\n");
         return 1;
+        break;
     }
     output(array, size);
-    int* arrayCopy = copy(array,size);
     // Task 1
     printf_s("\n\nnegative sum of even numbers: %d\n", firstTask(array, size));
     // Task 2
@@ -166,6 +166,7 @@ int main()
     secondTask(array, size);
     // Task 3
     printf_s("\n\nmin index %zu; max index %zu \n", findMinIndex(array,size), findMaxIndex(array,size));
+    int* arrayCopy = copy(array,size);
     thirdTask(arrayCopy,size,findMinIndex(array,size),findMaxIndex(array,size));
     output(arrayCopy,size);
     freeArray(arrayCopy);
