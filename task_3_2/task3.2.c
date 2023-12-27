@@ -28,7 +28,7 @@ double sum(int cycle_max, double temp);
 */
 int main()
 {
-    double temp = 0.5; // 0.5 --- is the value of the first element
+    double temp = -0.5; // -0.5 --- is the value of the first element
     int cycle_max = input();
     check(cycle_max);
     printf_s("%lf", sum(cycle_max, temp));
@@ -63,7 +63,7 @@ double sum(int cycle_max, double temp)
     for (int i = 1; i < cycle_max; i += 1)
     {
         double k = i;
-        temp *= (k + 1) / (k * (k + 2));
+        temp *= -(k + 1) / (k * (k + 2));
         temp_sum += temp;
     }
     return temp_sum;
