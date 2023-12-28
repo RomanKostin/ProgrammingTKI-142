@@ -11,7 +11,7 @@
 *@param array - pointer to the array
 *@param maxIndex - index of the max value in array
 */
-void firstTask(int* const array, size_t maxIndex);
+void firstTask(int* array,const size_t maxIndex);
 
 /**
 *@brief function finds size of new array. if value from the array contain one, new size gets + 1. that rule applies to full array.
@@ -20,7 +20,7 @@ void firstTask(int* const array, size_t maxIndex);
 *@param maxIndex - index of the max value in array
 *@return new size of the array
 */
-size_t newSize(int* const array, size_t const size, size_t maxIndex);
+size_t newSize(int* const array, size_t const size,const size_t maxIndex);
 
 /**
 *@brief function checks if value contain one
@@ -36,7 +36,7 @@ bool containOne(int value);
 *@param size - size of original array
 *@param maxIndex - index of the max value from original array
 */
-void secondTask(int* const array, int* const arrayCopy, size_t const size, size_t maxIndex);
+void secondTask(int* const array, int* arrayCopy, size_t const size, size_t maxIndex);
 
 /**
 *@brief function changes values of array with the rule that the first N elements of array changes: 1) if even A = A + value; 2) if odd A = A - value
@@ -46,7 +46,7 @@ void secondTask(int* const array, int* const arrayCopy, size_t const size, size_
 *@param rule - ammount of times that the rule applies
 *@return 0 when function applied "rule" ammount times
 */
-int thirdTask(int* const array, size_t size, int value, int rule);
+int thirdTask(int* const array, const size_t size, const int value,const int rule);
 
 /**
 *@brief function find first max index of the array
@@ -114,7 +114,7 @@ void keyboadArray(int* const array, const size_t size, int const left, int const
 *@param left - left border of domain
 *@param right - right border of domain
 */
-void randomArray(int* const array, const size_t size, int const left, int const right);
+void randomArray(int* array, const size_t size, int const left, int const right);
 
 /**
 *@brief prints values of array
@@ -196,12 +196,12 @@ int main()
     return 0;
 }
 
-void firstTask(int* const array, size_t maxIndex)
+void firstTask(int* array,const size_t maxIndex)
 {
     array[maxIndex] = -1 * array[maxIndex];
 }
 
-size_t newSize(int* const array, size_t const size, size_t maxIndex)
+size_t newSize(int* const array, size_t const size,const size_t maxIndex)
 {
     int temp = 0;
     for (size_t i = 0; i < size; i++)
@@ -222,29 +222,16 @@ bool containOne(int value)
         {
             return true;
         }
-        else
-        {
-            if (value < 10)
-            {
-                return false;
-            }
-            else
-            {
-                value /= 10;
-            }
-        }
+        value /= 10;
     }
     if (value % 10 == 1)
     {
         return true;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
-void secondTask(int* const array, int* const arrayCopy, size_t const size, size_t maxIndex)
+void secondTask(int* const array, int* arrayCopy, size_t const size, size_t maxIndex)
 {
     size_t j = 0;
     for (size_t i = 0; i < size; i++)
@@ -263,11 +250,16 @@ void secondTask(int* const array, int* const arrayCopy, size_t const size, size_
     }
 }
 
-int thirdTask(int* const array, size_t size, int value, int rule)
+int thirdTask(int* const array,const size_t size,const int value, int rule)
 {
-    if (rule <= 0)
+    if (rule == 0)
     {
         return 0;
+    }
+    if (rule < 0)
+    {
+        printf_s("wrong value");
+        abort();
     }
     for (size_t i = 0; i < size; i++)
     {
@@ -358,7 +350,7 @@ void keyboadArray(int* const array, const size_t size, int const left, int const
     }
 }
 
-void randomArray(int* const array, const size_t size, int const left, int const right)
+void randomArray(int* array, const size_t size, int const left, int const right)
 {
     srand(time(NULL));
     for (size_t i = 0; i < size; i++)
