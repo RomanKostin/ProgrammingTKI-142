@@ -202,7 +202,7 @@ void firstTask(int* array, const size_t maxIndex)
 
 size_t newSize(int* const array, size_t const size, const size_t maxIndex)
 {
-    int temp = 0;
+    size_t temp = 0;
     for (size_t i = 0; i < size; i++)
     {
         if (containOne(array[i]))
