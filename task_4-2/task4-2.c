@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <errno.h>
-#include <malloc.h>
 #include <stdlib.h>
 #include <time.h>
 #include <assert.h>
@@ -11,7 +10,7 @@
 *@param array - pointer to the array
 *@param maxIndex - index of the max value in array
 */
-void firstTask(int* array,const size_t maxIndex);
+void firstTask(int* array, const size_t maxIndex);
 
 /**
 *@brief function finds size of new array. if value from the array contain one, new size gets + 1. that rule applies to full array.
@@ -20,7 +19,7 @@ void firstTask(int* array,const size_t maxIndex);
 *@param maxIndex - index of the max value in array
 *@return new size of the array
 */
-size_t newSize(int* const array, size_t const size,const size_t maxIndex);
+size_t newSize(int* const array, size_t const size, const size_t maxIndex);
 
 /**
 *@brief function checks if value contain one
@@ -44,9 +43,8 @@ void secondTask(int* const array, int* arrayCopy, size_t const size, size_t maxI
 *@param size - size of the array
 *@param value - value that user chose
 *@param rule - ammount of times that the rule applies
-*@return 0 when function applied "rule" ammount times
 */
-int thirdTask(int* const array, const size_t size, const int value,const int rule);
+void thirdTask(int* const array, const size_t size, const int value, const int rule);
 
 /**
 *@brief function find first max index of the array
@@ -121,13 +119,13 @@ void randomArray(int* array, const size_t size, int const left, int const right)
 *@param array - pointer to array
 *@param size - size of array
 */
-void output(int* const array, size_t const size);
+void output(const int* const array, size_t const size);
 
 /**
 *@brief function clears memory used for array
 *@param array - pointer to array
 */
-void freeArray(int* array);
+void freeArray(int** array);
 
 /**
 *@brief used for choice of a way to fill an array
@@ -169,19 +167,20 @@ int main()
         return 1;
     }
     output(array, size);
+    size_t maxIndex = findMaxIndex(array, size);
     //Task 1
     int* arrayFirstCopy = copy(array, size);
-    firstTask(arrayFirstCopy, findMaxIndex(arrayFirstCopy, size));
+    firstTask(arrayFirstCopy, maxIndex);
     printf_s("\narray for the first task: \n");
     output(arrayFirstCopy, size);
-    freeArray(arrayFirstCopy);
+    freeArray(&arrayFirstCopy);
     //Task 2
-    size_t sizeForSecondArray = newSize(array, size, findMaxIndex(array, size));
+    size_t sizeForSecondArray = newSize(array, size, maxIndex);
     int* secondArray = getMemory(sizeForSecondArray);
-    secondTask(array, secondArray, size, findMaxIndex(array, size));
+    secondTask(array, secondArray, size, maxIndex);
     printf_s("\narray for the second task:\n");
     output(secondArray, sizeForSecondArray);
-    freeArray(secondArray);
+    freeArray(&secondArray);
     //Task 3
     int* arraySecondCopy = copy(array, size);
     printf_s("\ninput i: ");
@@ -191,17 +190,17 @@ int main()
     thirdTask(arraySecondCopy, size, i, rule);
     printf_s("\narray for the third task:\n");
     output(arraySecondCopy, size);
-    freeArray(arraySecondCopy);
-    freeArray(array);
+    freeArray(&arraySecondCopy);
+    freeArray(&array);
     return 0;
 }
 
-void firstTask(int* array,const size_t maxIndex)
+void firstTask(int* array, const size_t maxIndex)
 {
     array[maxIndex] = -1 * array[maxIndex];
 }
 
-size_t newSize(int* const array, size_t const size,const size_t maxIndex)
+size_t newSize(int* const array, size_t const size, const size_t maxIndex)
 {
     int temp = 0;
     for (size_t i = 0; i < size; i++)
@@ -216,7 +215,8 @@ size_t newSize(int* const array, size_t const size,const size_t maxIndex)
 
 bool containOne(int value)
 {
-    while (value >= 10)
+    value = abs(value);
+    while (value > 0)
     {
         if (value % 10 == 1)
         {
@@ -224,10 +224,7 @@ bool containOne(int value)
         }
         value /= 10;
     }
-    if (value % 10 == 1)
-    {
-        return true;
-    }
+
     return false;
 }
 
@@ -239,30 +236,25 @@ void secondTask(int* const array, int* arrayCopy, size_t const size, size_t maxI
         if (containOne(array[i]))
         {
             arrayCopy[j] = array[i];
-            j += 1;
+            j++;
             arrayCopy[j] = array[maxIndex];
         }
         else
         {
             arrayCopy[j] = array[i];
         }
-        j += 1;
+        j++;
     }
 }
 
-int thirdTask(int* const array,const size_t size,const int value, int rule)
+void thirdTask(int* const array, const size_t size, const int value, int rule)
 {
-    if (rule == 0)
-    {
-        return 0;
-    }
-    if (rule < 0)
-    {
-        printf_s("wrong value");
-        abort();
-    }
     for (size_t i = 0; i < size; i++)
     {
+        if (i == rule||rule<=0)
+        {
+            break;
+        }
         if (i % 2 == 0)
         {
             array[i] += value;
@@ -271,12 +263,7 @@ int thirdTask(int* const array,const size_t size,const int value, int rule)
         {
             array[i] -= value;
         }
-        if (i == rule - 1)
-        {
-            break;
-        }
     }
-    return 0;
 }
 
 void checkDomain(int const left, int const right)
@@ -299,7 +286,7 @@ void checkBelongingDomain(int value, int const left, int const right)
 
 int* copy(int* const array, size_t size)
 {
-    int* arrayCopy = (int*)malloc(size * sizeof(int));
+    int* arrayCopy = getMemory(size);
     for (size_t i = 0; i < size; i++)
     {
         arrayCopy[i] = array[i];
@@ -359,7 +346,7 @@ void randomArray(int* array, const size_t size, int const left, int const right)
     }
 }
 
-void output(int* const array, size_t const size)
+void output(const int* const array, size_t const size)
 {
     for (size_t i = 0; i < size; ++i)
     {
@@ -367,13 +354,10 @@ void output(int* const array, size_t const size)
     }
 }
 
-void freeArray(int* array)
+void freeArray(int** array)
 {
-    if (NULL != array)
-    {
-        free(array);
-    }
-    array = NULL;
+    free(*array);
+    *array = NULL;
 }
 
 size_t findMaxIndex(int* const array, size_t const size)
