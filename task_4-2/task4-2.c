@@ -41,10 +41,9 @@ void secondTask(int* const array, int* arrayCopy, size_t const size, size_t maxI
 *@brief function changes values of array with the rule that the first N elements of array changes: 1) if even A = A + value; 2) if odd A = A - value
 *@param array - pointer to the array
 *@param size - size of the array
-*@param value - value that user chose
 *@param rule - ammount of times that the rule applies
 */
-void thirdTask(int* const array, const size_t size, const int value, const int rule);
+void thirdTask(int* const array, const size_t size, const int rule);
 
 /**
 *@brief function find first max index of the array
@@ -129,8 +128,8 @@ void freeArray(int** array);
 
 /**
 *@brief used for choice of a way to fill an array
-*@param KEYBOARD - keyboard fill
-*@param RANDOM - random fill
+*@brief KEYBOARD - keyboard fill
+*@brief RANDOM - random fill
 */
 enum Choices
 {
@@ -183,11 +182,9 @@ int main()
     freeArray(&secondArray);
     //Task 3
     int* arraySecondCopy = copy(array, size);
-    printf_s("\ninput i: ");
-    int i = getInt();
     printf_s("\ninput ammount of times that you want rule to work: ");
     int rule = getInt();
-    thirdTask(arraySecondCopy, size, i, rule);
+    thirdTask(arraySecondCopy, size, rule);
     printf_s("\narray for the third task:\n");
     output(arraySecondCopy, size);
     freeArray(&arraySecondCopy);
@@ -247,21 +244,21 @@ void secondTask(int* const array, int* arrayCopy, size_t const size, size_t maxI
     }
 }
 
-void thirdTask(int* const array, const size_t size, const int value, int rule)
+void thirdTask(int* const array, const size_t size, int rule)
 {
     for (size_t i = 0; i < size; i++)
     {
-        if (i == rule||rule<=0)
+        if (i == rule || rule <= 0)
         {
             break;
         }
         if (i % 2 == 0)
         {
-            array[i] += value;
+            array[i] += i;
         }
         else
         {
-            array[i] -= value;
+            array[i] -= i;
         }
     }
 }
