@@ -38,7 +38,7 @@ bool containOne(int value);
 void secondTask(int* const array, int* arrayCopy, size_t const size, size_t maxIndex);
 
 /**
-*@brief function changes values of array with the rule that the first N elements of array changes: 1) if even A = A + value; 2) if odd A = A - value
+*@brief function changes values of array with the rule that the first N elements of array changes: 1) if even A = A + index; 2) if odd A = A - index
 *@param array - pointer to the array
 *@param size - size of the array
 *@param rule - ammount of times that the rule applies
