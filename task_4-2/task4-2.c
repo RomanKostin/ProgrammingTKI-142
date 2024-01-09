@@ -2,7 +2,6 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <time.h>
-#include <assert.h>
 #include <stdbool.h>
 
 /**
@@ -267,7 +266,7 @@ void checkDomain(int const left, int const right)
 {
     if (left > right)
     {
-        printf_s("wrong domain!!!!");
+        perror("wrong domain!!!!");
         abort();
     }
 }
@@ -276,7 +275,7 @@ void checkBelongingDomain(int value, int const left, int const right)
 {
     if (value<left || value>right)
     {
-        printf_s("value doesn't belong to domain!");
+        perror("value doesn't belong to domain!");
         abort();
     }
 }
@@ -320,6 +319,7 @@ int* getMemory(size_t const size)
     int* array = (int*)malloc(size * sizeof(int));
     if (NULL == array)
     {
+        perror("Error");
         abort();
     }
     return array;
