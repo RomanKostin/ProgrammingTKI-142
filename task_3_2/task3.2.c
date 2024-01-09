@@ -2,12 +2,24 @@
 #include <float.h>
 #include <stdlib.h>
 #include <errno.h>
+/**
+* @brief function finds ammount of cycles required for the second part of the task (compare element of sum to an epsilon and then print sum up to this value)
+* @param epsilon - value that user chose as an epsilon
+* @return epsilonMaxCycle - max value of cycles required for second part of the task
+*/
+int epsilonCycle(double epsilon);
 
 /**
 * @brief function used to get value from user
 * @return temp - result of user's input
 */
 int input();
+
+/**
+* @brief function used to get value as an epsilon from the user
+* @return epsilon - result of user's input
+*/
+double inputEpsilon();
 
 /**
 * @brief function checks amount of the cycles. If there is no cycles - abort()
@@ -29,9 +41,12 @@ double sum(int cycle_max, double temp);
 int main()
 {
     double temp = -0.5; // -0.5 --- is the value of the first element
+    printf_s("input ammount of cycles: ");
     int cycle_max = input();
+    printf_s("\ninput value for epsilon: ");
+    double epsilon = inputEpsilon(temp);
     check(cycle_max);
-    printf_s("%lf", sum(cycle_max, temp));
+    printf_s("sum of the first task: %lf\nsum with epsilon: %lf", sum(cycle_max, temp),sum(epsilonCycle(epsilon),temp));
     return 0;
 }
 
@@ -46,6 +61,19 @@ int input()
         abort();
     }
     return temp;
+}
+
+double inputEpsilon()
+{
+    double epsilon;
+    int res = scanf_s("%lf", &epsilon);
+    if (res != 1||epsilon - 0.5 >DBL_EPSILON||epsilon<DBL_EPSILON) // 0.5 - is a value of abs(first element of the sum)
+    {
+        errno = EIO;
+        perror("wrong input");
+        abort();
+    }
+    return epsilon;
 }
 
 void check(int cycle_max)
@@ -67,4 +95,18 @@ double sum(int cycle_max, double temp)
         temp_sum += temp;
     }
     return temp_sum;
+}
+
+int epsilonCycle(double epsilon)
+{
+    int epsilonMaxCycle = 1;
+    double k = 1,
+        epsilonValue = 0.5;
+    while (epsilonValue-epsilon>DBL_EPSILON)
+    {
+        epsilonValue *= (k + 1) / (k * (k + 2));
+        k++;
+        epsilonMaxCycle++;
+    }
+    return epsilonMaxCycle;
 }
