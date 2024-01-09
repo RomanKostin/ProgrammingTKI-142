@@ -32,7 +32,7 @@ void check(int cycle_max);
 * @param cycle_max - ammount of cycles
 * @temp - value of the first element of progression
 */
-double sum(int cycle_max, double temp);
+double sum(int cycle_max);
 
 /**
 * @brief entry point into the programm
@@ -40,13 +40,12 @@ double sum(int cycle_max, double temp);
 */
 int main()
 {
-    double temp = -0.5; // -0.5 --- is the value of the first element
     printf_s("input ammount of cycles: ");
     int cycle_max = input();
     printf_s("\ninput value for epsilon: ");
-    double epsilon = inputEpsilon(temp);
+    double epsilon = inputEpsilon();
     check(cycle_max);
-    printf_s("sum of the first task: %lf\nsum with epsilon: %lf", sum(cycle_max, temp),sum(epsilonCycle(epsilon),temp));
+    printf_s("sum of the first task: %lf\nsum with epsilon: %lf", sum(cycle_max),sum(epsilonCycle(epsilon)));
     return 0;
 }
 
@@ -85,9 +84,10 @@ void check(int cycle_max)
     }
 }
 
-double sum(int cycle_max, double temp)
+double sum(int cycle_max)
 {
-    double temp_sum = temp;
+    double temp_sum = 0.5, // 0.5 - is a value of abs(first element of the sum)
+        temp = 0.5; // 0.5 - is a value of abs(first element of the sum)
     for (int i = 1; i < cycle_max; i += 1)
     {
         double k = i;
@@ -101,7 +101,7 @@ int epsilonCycle(double epsilon)
 {
     int epsilonMaxCycle = 1;
     double k = 1,
-        epsilonValue = 0.5;
+        epsilonValue = 0.5; // 0.5 - is a value of abs(first element of the sum)
     while (epsilonValue-epsilon>DBL_EPSILON)
     {
         epsilonValue *= (k + 1) / (k * (k + 2));
