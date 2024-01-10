@@ -148,7 +148,7 @@ int main()
     int const left = getInt(),
         right = getInt();
     checkDomain(left, right);
-    printf_s("1 - keyboard fill; 2 - random fill ");
+    printf_s("%d - keyboard fill; %d - random fill ",(int)KEYBOARD, (int)RANDOM);
     int choice = getInt();
     int* array = getMemory(size);
     switch ((enum Choices)choice)
@@ -245,19 +245,22 @@ void secondTask(int* const array, int* arrayCopy, size_t const size, size_t maxI
 
 void thirdTask(int* const array, const size_t size, int rule)
 {
-    for (size_t i = 0; i < size; i++)
+    if (rule > 0)
     {
-        if (i == rule || rule <= 0)
+        if (rule > size)
         {
-            break;
+            rule = size;
         }
-        if (i % 2 == 0)
+        for (size_t i = 0; i < rule; i++)
         {
-            array[i] += i;
-        }
-        else
-        {
-            array[i] -= i;
+            if (i % 2 == 0)
+            {
+                array[i] += i;
+            }
+            else
+            {
+                array[i] -= i;
+            }
         }
     }
 }
